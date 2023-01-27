@@ -1,0 +1,42 @@
+{
+    "chains": [
+        {
+            "chain": "ethereum",
+            "config": {
+                "artifactsPath": "./packages/messenger/artifacts",
+                "deploy": {
+                    "scripts": "./packages/messenger/deploy",
+                    "include": [
+                        "./node_modules",
+                        "./packages/messenger/scripts/constants.ts",
+                        "./packages/messenger/utils/",
+                        "./packages/messenger/scripts/config.ts"                    
+                    ]
+                },
+                "networks": [
+                    {
+                        "name": "hardhat",                        
+                        "accounts": {
+                            "mnemonic": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat"
+                        }
+                    }
+                ],
+                "environment": {
+                    "MNEMONIC": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",                    
+                    "DEPLOYER_PRIVATE_KEY": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"                    
+                }
+            },
+            "tag": "v1"
+        }
+    ],
+    "offChainActors": [
+        {
+            "name": "ipfs",
+            "image": "ipfs/go-ipfs:v0.4.23",
+            "ports": [
+                5001
+            ],
+            "tag": "v1"
+        }
+    ]
+}
