@@ -1,20 +1,34 @@
 import { Contract, Signer} from 'ethers'
 import { ethers } from 'hardhat'
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
 import logContractDeployed from '../logContractDeployed'
 import getSigners from '../getSigners'
 const { parseUnits } = ethers.utils
+import { Wallet } from "ethers";
 import { contracts, deployConfig } from '../config'
 import { ONE_WEEK } from '../constants'
 const { externalContracts } = contracts.testnet
 
-async function func() {
+const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  const { deployments } = hre;
+  console.log('Deploying contracts...')
+  console.log(deployments)
+  let _deployer: any;
+  ({ deployer: _deployer } = await hre.ethers.getNamedSigners());
+  const deployer = _deployer as Wallet;
+  const deplyerName = (await deployer.provider.getNetwork()).name
+  console.log("deployer: ", deplyerName);
   const HubMessageBridge = await ethers.getContractFactory('HubMessageBridge')
   const SpokeMessageBridge = await ethers.getContractFactory(
     'SpokeMessageBridge'
   )
 
-  const { hubSigner, spokeSigners } = getSigners()
-  const hubName = (await hubSigner.provider.getNetwork()).name
+  const hubSigner = deployer;
+  const spokeSigners = [deployer];
+  
+  // const hubName = (await hubSigner.provider.getNetwork()).name
+  // console.log("hubSigner name: ", hubName);
 
   const hubMessageBridge = await HubMessageBridge.connect(hubSigner).deploy()
 

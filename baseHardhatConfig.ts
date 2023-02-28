@@ -10,10 +10,7 @@ dotenv.config({
   path: path.join(__dirname, '.env'),
 })
 
-const accounts =
-  process.env.DEPLOYER_PRIVATE_KEY !== undefined
-    ? [process.env.DEPLOYER_PRIVATE_KEY]
-    : []
+const accounts = ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"]
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -50,37 +47,30 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       accounts: {
-        mnemonic: process.env.HOP_MNEMONIC_TESTNET,
+        mnemonic: "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat", 
       },
     },
     localhost: {
-      url: 'http://localhost:8545',
+      url: 'http://127.0.0.1:8545',
+      chainId: 31337,
+    },
+    remote: {
+      url: 'http://54.196.37.9:4000',
+      chainId: 1338,
       accounts: {
-        mnemonic: process.env.HOP_MNEMONIC_TESTNET,
+        mnemonic: "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",
       },
-    },
-    goerli: {
-      url: process.env.RPC_ENDPOINT_GOERLI || '',
-      accounts,
-    },
-    optimismGoerli: {
-      url: process.env.RPC_ENDPOINT_OPTIMISM_GOERLI || '',
-      accounts,
-    },
-    mainnet: {
-      url: process.env.RPC_ENDPOINT_MAINNET || '',
-      accounts,
-    },
+    }
   },
-  etherscan: {
-    apiKey: {
-      mainnet: process.env.ETHERSCAN_API_KEY || '',
-      // arbitrum: process.env.ARBITRUM_API_KEY || '',
-      // gnosis: process.env.GNOSIS_API_KEY || '',
-      goerli: process.env.ETHERSCAN_API_KEY || '',
-      optimisticGoerli: process.env.OPTIMISM_API_KEY || '',
-    },
-  },
+  // etherscan: {
+  //   apiKey: {
+  //     //mainnet: process.env.ETHERSCAN_API_KEY || '',
+  //     // arbitrum: process.env.ARBITRUM_API_KEY || '',
+  //     // gnosis: process.env.GNOSIS_API_KEY || '',
+  //     //goerli: process.env.ETHERSCAN_API_KEY || '',
+  //     //optimisticGoerli: process.env.OPTIMISM_API_KEY || '',
+  //   },
+  // },
 }
 
 export default config
