@@ -5,6 +5,7 @@ import '@nomiclabs/hardhat-etherscan'
 import '@nomiclabs/hardhat-waffle'
 import '@typechain/hardhat'
 import 'solidity-coverage'
+import "hardhat-deploy"
 
 dotenv.config({
   path: path.join(__dirname, '.env'),
@@ -44,6 +45,9 @@ const config: HardhatUserConfig = {
       },
     ],
   },
+  namedAccounts: {
+    deployer: 0,
+  },
   networks: {
     hardhat: {
       accounts: {
@@ -53,13 +57,6 @@ const config: HardhatUserConfig = {
     localhost: {
       url: 'http://127.0.0.1:8545',
       chainId: 31337,
-    },
-    remote: {
-      url: 'http://54.196.37.9:4000',
-      chainId: 1338,
-      accounts: {
-        mnemonic: "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",
-      },
     }
   },
   // etherscan: {

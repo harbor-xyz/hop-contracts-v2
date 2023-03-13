@@ -39,6 +39,7 @@
     "merkletreejs": "^0.2.32"
   },
   "dependencies": {
+    "@harbor-xyz/harbor": "^0.4.9",
     "@hop-protocol/connectors": "^0.0.0",
     "@openzeppelin/contracts": "^4.7.3"
   }

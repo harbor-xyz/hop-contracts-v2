@@ -1,67 +1,61 @@
 {
-    "chains": [
+    "chains":[
         {
             "chain": "ethereum",
             "config": {
                 "artifactsPath": "./packages/messenger/artifacts",
                 "deploy": {
-                    "scripts": "./packages/messenger/deploy",
+                    "scripts": "./packages/messenger/deploy/ethereum",
                     "include": [
                         "./node_modules",
                         "./packages/messenger/scripts/constants.ts",
                         "./packages/messenger/utils/",
-                        "./packages/messenger/scripts/config.ts"                    
+                        "./packages/messenger/scripts/config.ts"
                     ]
                 },
                 "networks": [
                     {
-                        "name": "hardhat", 
-                        "chainId": 1337,                       
-                        "accounts": {
-                            "mnemonic": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat"
-                        }
+                        "name": "hardhat",
+                        "chainId": 1337
                     }
                 ],
                 "environment": {
-                    "MNEMONIC": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",                    
-                    "DEPLOYER_PRIVATE_KEY": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"                    
+                    "MNEMONIC": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",
+                    "DEPLOYER_PRIVATE_KEY": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
                 }
             },
             "wallets": [{ "tokens": [{ "symbol": "USDC", "amount": 10000 }] }],
             "tag": "v2"
         },
         {
-            "chain": "polygon",
+            "chain": "optimism",
             "config": {
                 "artifactsPath": "./packages/messenger/artifacts",
                 "deploy": {
-                    "scripts": "./packages/messenger/deploy",
+                    "scripts": "./packages/messenger/deploy/optimism",
                     "include": [
                         "./node_modules",
                         "./packages/messenger/scripts/constants.ts",
                         "./packages/messenger/utils/",
-                        "./packages/messenger/scripts/config.ts"                    
+                        "./packages/messenger/scripts/config.ts"
                     ]
                 },
                 "networks": [
                     {
-                        "name": "hardhat", 
-                        "chainId": 1338,                       
-                        "accounts": {
-                            "mnemonic": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat"
-                        }
+                        "name": "hardhat",
+                        "chainId": 1338
                     }
                 ],
                 "environment": {
-                    "MNEMONIC": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",                    
-                    "DEPLOYER_PRIVATE_KEY": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"                    
+                    "MNEMONIC": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat",                 
+                    "DEPLOYER_PRIVATE_KEY": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
                 }
             },
-            "wallets": [{ "tokens": [{ "symbol": "MATIC", "amount": 10000 }] }],
+            "wallets": [{ "tokens": [{ "symbol": "OP", "amount": 10000 }] }],
             "tag": "v2"
         }
     ],
-    "offChainActors": [
+    "offChainActors":[
         {
             "name": "ipfs",
             "image": "ipfs/go-ipfs:v0.4.23",
