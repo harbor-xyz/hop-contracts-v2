@@ -21,9 +21,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const spokeMessageBridge = await deploy('SpokeMessageBridge', {
 		from: deployer,
-    args: [31337,     
+    args: [1337,     
     [{
-        chainId: 31337,
+        chainId: 1337,
         messageFee: deployConfig.messageFee,
         maxBundleMessages: deployConfig.maxBundleMessages,
       }]
@@ -42,24 +42,21 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       autoMine: true, // speed up deployment on local network (ganache, hardhat), no effect on live networks
     });
 
-    console.log(process.env.ETHEREUM_URL)
-    const ethereumProvider = new ethers.providers.JsonRpcProvider(process.env.ETHEREUM_URL);
-    console.log(ethereumProvider)
-    // const ethereumSigner = ethereumProvider.getSigner()
-    // l1Connector = await ethers.getContractAt("L1OptimismConnector", ContractAddress);
 
-
+    console.log('Connecting L1Connector and L2Connector...')
     const l2ConnectorContract = await ethers.getContractFactory("L2OptimismConnector");
     const l2ConnectordeployedContract = l2ConnectorContract.attach(l2Connector.address);
-    await l2ConnectordeployedContract.setCounterpart(l1Connector.address, { gasLimit: 5000000 })
+    await l2ConnectordeployedContract.setCounterpart("0xd710a67624Ad831683C86a48291c597adE30F787", { gasLimit: 5000000 })
+    console.log('L1Connector and L2Connector connected')
 
     const spokeMessageBridgeContract = await ethers.getContractFactory("SpokeMessageBridge");
     const spokeMessageBridgedeployedContract = spokeMessageBridgeContract.attach(spokeMessageBridge.address);
     await spokeMessageBridgedeployedContract.setHubBridge(
       l2Connector.address,
-      feeDistributor.address,
+      "0xd753c12650c280383Ce873Cc3a898F6f53973d16",
       { gasLimit: 5000000 }
     )
+    console.log('Hub and Spoke bridge connected')
 }
 
 module.exports.default = func;

@@ -39,13 +39,19 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     });
 
     console.log('Deploying L1OptimismConnector...')
-    const l1OptimismConnector = await deploy('L1OptimismConnector', {
+    const l1Connector = await deploy('L1OptimismConnector', {
       from: deployer,
       args: [hubMessageBridge.address, externalContracts.optimism.l1CrossDomainMessenger],
       log: true,
       gasLimit: 5000000,
       autoMine: true, // speed up deployment on local network (ganache, hardhat), no effect on live networks
     });
+    
+    console.log('Connecting L1Connector and L2Connector...')
+    const l1ConnectorContract = await ethers.getContractFactory("L1OptimismConnector");
+    const l1ConnectordeployedContract = l1ConnectorContract.attach(l1Connector.address);
+    await l1ConnectordeployedContract.setCounterpart("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", { gasLimit: 5000000 })
+    console.log('L1Connector and L2Connector connected')
 }
 
 module.exports.default = func;
